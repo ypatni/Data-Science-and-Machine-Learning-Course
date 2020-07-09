@@ -16,3 +16,12 @@ print(df.loc['G1'].loc[1]) # passed as a series, go from outside to index
 df.index.names = ['Groups', 'Num']
 print(df)
 
+#finding single value 
+print(f"\n")
+print(df.loc['G2'].loc[2]['B'])
+
+#cross section of rows or columns in a multi level index 
+print(df.xs('G1')) 
+# can go inside a multi level index 
+#lets say I want all the values assigned to 1 in both G1 and G2  
+print(df.xs(1, level='Num'))
