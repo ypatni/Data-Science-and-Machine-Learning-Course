@@ -13,5 +13,12 @@ for i in axes:
 plt.tight_layout()
 plt.show()
 
-
+fig, axes = plt.subplots(nrows=1, ncols=2)
+axes[0].plot(x,y)
+axes[1].plot(y,x) # this just shows how each subplot is basically a part of an array that you can individually access and set making it so much more efficient 
+axes[0].set_title('First Plot')
+axes[1].set_title('Second Plot')
+plt.tight_layout() # to stop axes overlapping
+plt.show()
+#axes.plot(x,y)
 
