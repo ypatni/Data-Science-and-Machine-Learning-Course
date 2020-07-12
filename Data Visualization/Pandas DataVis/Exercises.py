@@ -19,3 +19,17 @@ plt.show()
 #4
 df3[['a','b']].plot.box()
 plt.show()
+#5
+df3['d'].plot.kde()
+plt.show()
+#6
+df3['d'].plot.kde(lw = 5 , ls = '--')
+plt.show()
+#7 
+df3.loc[0:30].plot.area(alpha=0.4)
+plt.show()
+#8  - bonus 
+f = plt.figure()
+df3.loc[0:30].plot.area(alpha=0.4,ax=f.gca())
+plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
+plt.show()
