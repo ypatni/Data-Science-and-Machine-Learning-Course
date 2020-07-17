@@ -43,4 +43,17 @@ print(cdf)
 # so if we hold all other features fixed, a one unit increase in average income is associated with an increase in $21.53 in price
 # the data we have is artificial and makes literally no sense
  
+#CREATING PREDICTIONS FROM TEST SET 
+
+predictions = lm.predict(x_test)
+print(predictions) #creates array of predicted prices of house 
+#but we know y test has the correct prices of the houses, so we want to know how far off the predictions are from the actual values 
+#so we make a scatter plot!
+plt.scatter(y_test, predictions)
+plt.show()
+#we get a pretty staright line which is very good 
+#now we create a histogram of the residuals
+
+sns.distplot((y_test-predictions))
+plt.show()
 
