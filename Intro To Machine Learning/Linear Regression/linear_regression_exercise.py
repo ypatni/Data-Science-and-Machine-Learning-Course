@@ -21,4 +21,20 @@ sns.jointplot(x='Time on Website',y='Yearly Amount Spent',data=df)
 plt.show()
 sns.jointplot(x='Time on App',y='Yearly Amount Spent',data=df)
 plt.show()
+sns.lmplot(x = "Length of Membership", y= "Yearly Amount Spent", data = df)
+plt.show()
+#setting training and testing data 
+print(df.columns)
+y= df["Yearly Amount Spent"] #what were trying to predict 
+x = df[['Avg. Session Length', 'Time on App','Time on Website', 'Length of Membership']]
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=101)
+
+lm = LinearRegression()
+
+lm.fit(x_train,y_train)
+#printing coefficients
+
+print(lm.coef_)
+
 
