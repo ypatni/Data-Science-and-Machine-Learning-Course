@@ -8,6 +8,7 @@ import chart_studio.plotly as py
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.datasets import load_boston #for real dataset 
+from sklearn import metrics 
 mpl.rcParams['patch.force_edgecolor'] = True
 sns.set()
 
@@ -56,4 +57,15 @@ plt.show()
 
 sns.distplot((y_test-predictions))
 plt.show()
+#normally distributed residuals show that the model is CORRECT choice for dataset 
+
+#evaluating the regression model 
+print(f"\n")
+print(metrics.mean_absolute_error(y_test, predictions))
+print(f"\n")
+print(metrics.mean_squared_error(y_test, predictions))
+print(f"\n")
+print(np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+
+
 
