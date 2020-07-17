@@ -37,4 +37,20 @@ lm.fit(x_train,y_train)
 
 print(lm.coef_)
 
+#predicting the testing data 
+predictions = lm.predict(x_test)
 
+plt.scatter(y_test, predictions)
+plt.xlabel('Y Test - True Values')
+plt.ylabel('Predicted Values')
+plt.show()
+
+#evaluating model
+
+print(f"\n")
+print('MAE', metrics.mean_absolute_error(y_test, predictions))
+print(f"\n")
+print('MSE',metrics.mean_squared_error(y_test, predictions))
+print(f"\n")
+print('RMSE',np.sqrt(metrics.mean_squared_error(y_test, predictions))) 
+print(f"\n")
