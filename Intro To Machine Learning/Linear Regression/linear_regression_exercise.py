@@ -46,7 +46,6 @@ plt.ylabel('Predicted Values')
 plt.show()
 
 #evaluating model
-
 print(f"\n")
 print('MAE', metrics.mean_absolute_error(y_test, predictions))
 print(f"\n")
@@ -54,3 +53,11 @@ print('MSE',metrics.mean_squared_error(y_test, predictions))
 print(f"\n")
 print('RMSE',np.sqrt(metrics.mean_squared_error(y_test, predictions))) 
 print(f"\n")
+
+#plotting residuals
+
+sns.distplot((y_test-predictions), bins=30)
+plt.show()
+
+cdf = pd.DataFrame(lm.coef_, x.columns, columns=['Coeff'])
+print(cdf)
