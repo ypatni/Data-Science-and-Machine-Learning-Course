@@ -31,7 +31,6 @@ plt.show()
 plt.figure(figsize=(10,7))
 sns.boxplot(x='Pclass', y = 'Age', data = train)
 plt.show() #shows that wealthier classes have older people 
-
 def impute_age(cols):
     Age = cols[0]
     Pclass = cols[1]
@@ -44,11 +43,18 @@ def impute_age(cols):
             return 24
     else: 
         return Age
-
 train['Age'] = train[['Age', 'Pclass']].apply(impute_age, axis = 1)
 #checking again for missing age data 
 train.drop('Cabin', axis = 1, inplace = True)
 train.dropna(inplace=True)
-sns.heatmap(train.isnull(), yticklabels=False, cbar = False, cmap= 'viridis')
-plt.show() #now no missing age columns 
+sns.heatmap(train.isnull(), yticklabels=False, cbar = False, cmap= 'viridis')#now no missing  columns
+#plt.show()  
+
+sex = pd.get_dummies(train['Sex'], drop_first = True)
+embark = pd.get_dummies(train['Embarked'], drop_first=True)
+
+train = pd.concat([train, sex, embark], axis = 1)
+train.drop(['Sex', 'Embarked', 'Name','Ticket', 'PassengerId'],axis = 1, inplace = True)
+print(train.head()) #all the data is now numeical and can be used by the ML algorithm 
+ 
 
