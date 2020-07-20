@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 mpl.rcParams['patch.force_edgecolor'] = True
 sns.set()
 
@@ -57,4 +61,13 @@ train = pd.concat([train, sex, embark], axis = 1)
 train.drop(['Sex', 'Embarked', 'Name','Ticket', 'PassengerId'],axis = 1, inplace = True)
 print(train.head()) #all the data is now numeical and can be used by the ML algorithm 
  
+x = train.drop('Survived', axis = 1)
+y = train['Survived']
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=101)
+logmodel = LogisticRegression()
+logmodel.fit(x_train, y_train)
+predictions = logmodel.predict(x_test)
 
+print(classification_report(y_test, predictions)) 
+
+#when using the confusion matrix  - print(confusion_matrix(y_test, predictions)) 
