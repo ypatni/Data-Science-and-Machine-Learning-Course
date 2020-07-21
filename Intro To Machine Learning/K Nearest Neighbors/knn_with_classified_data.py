@@ -38,3 +38,24 @@ print(confusion_matrix(y_test, pred))
 #so our model was pretty good with k =1, but if we want greater accuracy, we need to figure out which k value is the most 
 # appropriate
 
+#iterate many models and find their error rate 
+error_rate = [] 
+for i in range(1,40):
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(x_train, y_train)
+    pred_i = knn.predict(x_test)
+    error_rate.append(np.mean(pred_i != y_test))
+
+plt.figure(figsize=(10,6))
+plt.plot(range(1,40), error_rate, color = 'green', linestyle = 'dashed', marker = 'o', markerfacecolor = 'blue', markersize = 10)
+plt.title('Error Rate vs K Value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
+plt.show()
+
+#we found a reasonably low error rate at k =17 
+knn = KNeighborsClassifier(n_neighbors= 17)
+knn.fit(x_train, y_train)
+pred = knn.predict(x_test)
+print(classification_report(y_test, pred)) 
+print(confusion_matrix(y_test, pred)) 
