@@ -33,3 +33,11 @@ sns.countplot(x='purpose',hue='not.fully.paid',data=loans,palette='Set1')
 plt.show()
 sns.jointplot(x='fico',y='int.rate',data=loans,color='purple')
 plt.show()
+
+cat_feats = ['purpose']
+final_data = pd.get_dummies(loans,columns=cat_feats,drop_first=True) 
+
+x = loans.drop('not.fully.paid', axis = 1)
+y = loans['not.fully.paid']
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state = 101)
+
