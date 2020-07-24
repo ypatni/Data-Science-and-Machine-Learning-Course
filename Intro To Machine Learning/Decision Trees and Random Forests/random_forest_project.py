@@ -37,7 +37,17 @@ plt.show()
 cat_feats = ['purpose']
 final_data = pd.get_dummies(loans,columns=cat_feats,drop_first=True) 
 
-x = loans.drop('not.fully.paid', axis = 1)
-y = loans['not.fully.paid']
+x = final_data.drop('not.fully.paid', axis = 1)
+y = final_data['not.fully.paid']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state = 101)
+dtree = DecisionTreeClassifier()
+dtree.fit(x_train, y_train)
+predictions = dtree.predict(x_test)
+print(classification_report(y_test, predictions)) 
+print(confusion_matrix(y_test, predictions)) 
 
+rfc = RandomForestClassifier(n_estimators = 200)
+rfc.fit(x_train, y_train)
+rfc_pred = rfc.predict(x_test)
+print(classification_report(y_test, rfc_pred)) 
+print(confusion_matrix(y_test, rfc_pred)) 
