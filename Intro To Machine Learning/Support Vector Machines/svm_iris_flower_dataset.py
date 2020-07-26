@@ -15,11 +15,20 @@ sns.set()
 sns.set_style('whitegrid')
 iris = sns.load_dataset('iris')
 
-sns.pairplot(iris, hue = "species") - very laggy 
-plt.show() 
+#sns.pairplot(iris, hue = "species") 
+#plt.show() 
 #^ the setosa species seems to be the most seperable 
 setosa = iris[iris['species']=='setosa']
 sns.kdeplot(setosa['sepal_width'], setosa['sepal_length'],cmap="plasma", shade=True, shade_lowest=False)
 plt.show()
 
+x = iris.drop('species', axis = 1)
+y = iris['species']
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
+model = SVC()
+model.fit(x_train, y_train)
+predictions = model.predict(x_test)
+print(classification_report(y_test, predictions)) 
+print('\n')
+print(confusion_matrix(y_test, predictions)) 
 
