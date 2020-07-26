@@ -15,8 +15,8 @@ sns.set()
 sns.set_style('whitegrid')
 iris = sns.load_dataset('iris')
 
-#sns.pairplot(iris, hue = "species") - very laggy 
-#plt.show() 
+sns.pairplot(iris, hue = "species") - very laggy 
+plt.show() 
 #^ the setosa species seems to be the most seperable 
 setosa = iris[iris['species']=='setosa']
 sns.kdeplot(setosa['sepal_width'], setosa['sepal_length'],cmap="plasma", shade=True, shade_lowest=False)
