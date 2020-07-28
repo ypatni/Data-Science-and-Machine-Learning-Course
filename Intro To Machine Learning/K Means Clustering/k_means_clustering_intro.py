@@ -18,3 +18,13 @@ print(data[0].shape) #gives you a tuple with numpy arrays here it has 200 sample
 plt.scatter(data[0][:,0], data[0][:,1], c = data[1], cmap = 'rainbow') #all rows in first column vs all rows in second column and then we use the centers 
 plt.show()
 
+kmeans = KMeans(n_clusters = 4)
+kmeans.fit(data[0])
+print('\n')
+print(kmeans.labels_) #if we didnt have the correct labels we would be done right here 
+fig, (ax1,ax2) = plt.subplots(1,2, sharey = True, figsize= (10,6))
+ax1.set_title('KMeans')
+ax1.scatter(data[0][:,0], data[0][:,1], c = kmeans.labels_, cmap = "rainbow")
+ax2.set_title('Original')
+ax2.scatter(data[0][:,0], data[0][:,1], c = data[1], cmap= 'rainbow')
+plt.show()
