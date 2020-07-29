@@ -30,3 +30,19 @@ plt.show()
 print(df[df['Grad.Rate']>100]) #we found one schools graduation rate to be higher than 100 for some reason 
 #resetting to 100 
 df['Grad.Rate']['Cazenovia College'] = 100
+#KMeans Cluster 
+
+kmeans = KMeans(n_clusters = 2)
+kmeans.fit(df.drop('Private', axis = 1))
+print(kmeans.cluster_centers_)
+
+def converter(cluster):
+    if cluster == 'Yes':
+        return 1
+    else: 
+        return 0
+df['Cluster'] = df['Private'].apply(converter)
+print(df.head())
+print(classification_report(df['Cluster'], kmeans.labels_)) 
+
+print(confusion_matrix(df['Cluster'], kmeans.labels_)) 
