@@ -55,3 +55,11 @@ def text_process(mess):
     nopunc = ''.join(nopunc)
     return [word for word in nopunc.split() if word.lower() not in stopwords.words('English')] 
 
+#tokenization - converting normal text string into clean version 
+messages['message'].head(5).apply(text_process)
+
+bow_transformer = CountVectorizer(analyzer = text_process).fit(messages['message'])
+print(len(bow_transformer.vocabulary_))
+mess4 =messages['message'][3]
+bow4 = bow_transformer.transform([mess4])
+print(bow4)
