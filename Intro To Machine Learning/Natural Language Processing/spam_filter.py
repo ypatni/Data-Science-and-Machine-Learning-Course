@@ -6,6 +6,7 @@ import seaborn as sns
 import string
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
 mpl.rcParams['patch.force_edgecolor'] = True
 sns.set()
 sns.set_style('whitegrid')
@@ -63,3 +64,13 @@ print(len(bow_transformer.vocabulary_))
 mess4 =messages['message'][3]
 bow4 = bow_transformer.transform([mess4])
 print(bow4)
+
+messages_bow = bow_transformer.transform(messages['message'])
+print("Shape of Sparse Matrix: ", messages_bow.shape)
+#for non zero occurences: messages_bow.nnz
+
+tfidf_transformer = TfidfTransformer().fit(messages_bow)
+tfidf4 = tfidf_transformer.transform(bow4)
+print(tfidf4)
+print(tfidf_transformer.idf_[bow_transformer.vocabulary_['university']])
+messages_tfidf = tfidf_transformer.transform(messages_bow)
