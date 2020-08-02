@@ -7,6 +7,8 @@ import string
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.naive_bayes import MultinomialNB
+
 mpl.rcParams['patch.force_edgecolor'] = True
 sns.set()
 sns.set_style('whitegrid')
@@ -74,3 +76,14 @@ tfidf4 = tfidf_transformer.transform(bow4)
 print(tfidf4)
 print(tfidf_transformer.idf_[bow_transformer.vocabulary_['university']])
 messages_tfidf = tfidf_transformer.transform(messages_bow)
+
+spam_detect_model = MultinomialNB().fit(messages_tfidf, messages['label'])
+print("predicted outcome: ", spam_detect_model.predict(tfidf4[0]))
+#checking if its right 
+print("actual given: ", messages['label'][3])
+print('\n')
+
+all_pred = spam_detect_model.predict(messages_tfidf)
+print(all_pred)
+#^here we evaluated all the data for training but we actually need to split the data to train and test data
+
