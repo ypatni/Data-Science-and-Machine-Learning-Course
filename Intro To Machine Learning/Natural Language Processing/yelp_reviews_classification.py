@@ -34,3 +34,17 @@ print(stars_mean)
 
 sns.heatmap(stars_mean.corr(), cmap= 'coolwarm', annot= True)
 plt.show()
+
+#NLP Classification
+yelp_class = yelp[(yelp['stars']==1) | (yelp['stars'] ==5)]
+print(yelp_class)
+
+x = yelp_class['text']
+y = yelp_class['stars']
+cv = CountVectorizer()
+x = cv.fit_transform(x)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=101)
+nb = MultinomialNB()
+nb.fit(x_train, y_train)
+
+
