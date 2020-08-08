@@ -48,4 +48,10 @@ model.add(Dense(1)) #we only want to predict one value, the price
 model.compile(optimizer='rmsprop', loss= 'mse') #loss depends on what type of task you try to solve
 
 
+model.fit(x=X_train, y = y_train, epochs=250) # 1 epoch = 1 pass over the entire dataset
+
+loss_df = pd.DataFrame(model.history.history)
+print(loss_df)
+loss_df.plot()
+plt.show()
 
