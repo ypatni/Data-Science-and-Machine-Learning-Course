@@ -5,6 +5,7 @@ import matplotlib as mpl
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import tensorflow as tf 
@@ -55,3 +56,18 @@ print(loss_df)
 loss_df.plot()
 plt.show()
 
+#model evaluation 
+print(model.evaluate(X_test, y_test, verbose=0)) #this gives back the mean squared error
+print(model.evaluate(X_train, y_train, verbose=0))
+
+test_predictions = model.predict(X_test)
+test_predictions = pd.Series(test_predictions.reshape(300,))
+pred_df = pd.DataFrame(y_test, columns=['test true y'])
+pred_df = pd.concat([pred_df, test_predictions], axis = 1)
+pred_df.columns = ['test true y', 'model predictions']
+print(pred_df)
+
+sns.scatterplot(x='test true y', y = 'model predictions', data=pred_df)
+plt.show()
+print(mean_absolute_error(pred_df['test true y'], pred_df['model predictions']))
+print(mean_squared_error(pred_df['test true y'], pred_df['model predictions']))
