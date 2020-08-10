@@ -18,6 +18,9 @@ sns.lmplot('Room.Board', 'Grad.Rate', data = df, hue = 'Private', palette = 'coo
 plt.show()
 sns.lmplot('Outstate', 'F.Undergrad', data = df, hue = 'Private', height = 7, fit_reg=False)
 plt.show()
+sns.lmplot('Accept', 'Enroll', data = df, hue = 'Private', height = 7, fit_reg=False)
+plt.show()
+
 sns.set_style('darkgrid')
 g = sns.FacetGrid(df, height = 7,  hue="Private")
 g.map(plt.hist, 'Outstate', bins = 20, alpha = 0.6)
@@ -31,7 +34,10 @@ print(df[df['Grad.Rate']>100]) #we found one schools graduation rate to be highe
 #resetting to 100 
 df['Grad.Rate']['Cazenovia College'] = 100
 #KMeans Cluster 
-
+sns.set_style('darkgrid')
+g = sns.FacetGrid(df, height = 7,  hue="Private")
+g.map(plt.hist, 'Grad.Rate', bins = 20, alpha = 0.6) 
+plt.show()
 kmeans = KMeans(n_clusters = 2)
 kmeans.fit(df.drop('Private', axis = 1))
 print(kmeans.cluster_centers_)
