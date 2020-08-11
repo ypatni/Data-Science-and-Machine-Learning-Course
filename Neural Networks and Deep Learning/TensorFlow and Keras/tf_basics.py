@@ -6,8 +6,9 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense
+
 import tensorflow as tf 
 mpl.rcParams['patch.force_edgecolor'] = True
 sns.set()
@@ -71,3 +72,12 @@ sns.scatterplot(x='test true y', y = 'model predictions', data=pred_df)
 plt.show()
 print(mean_absolute_error(pred_df['test true y'], pred_df['model predictions']))
 print(mean_squared_error(pred_df['test true y'], pred_df['model predictions']))
+
+new_gem = [[998, 1000]]
+
+new_gem = scaler.transform(new_gem)
+print(model.predict(new_gem)) #price estimated to be around $420
+model.save('my_gem_model.h5')
+
+later_model = load_model('my_gem_model.h5')
+print(later_model.predict(new_gem)) #saving and loading model 
