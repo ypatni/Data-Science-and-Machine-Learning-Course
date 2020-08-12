@@ -42,7 +42,7 @@ bottom_ninety_nine_perc = df.sort_values('price', ascending=False).iloc[216:]
 plt.figure(figsize=(10,6))
 sns.scatterplot(x='long', y='lat', data = bottom_ninety_nine_perc, hue = 'price', edgecolor=None, alpha=0.2, palette='RdYlGn')
 plt.show()#we basically recreated the map of King County, Seattle 
-
-
+sns.boxplot(x='waterfront', y='price', data = df)
+plt.show()
 
 
