@@ -31,7 +31,17 @@ plt.show()
 plt.figure(figsize = (10,6))
 sns.boxplot(x='bedrooms', y = 'price', data=df)
 plt.show()
-
+plt.figure(figsize = (12,9))
+sns.scatterplot(x='price', y='long', data =df)
+plt.show()
+plt.figure(figsize = (12,9))
+sns.scatterplot(x='price', y='lat', data =df)
+plt.show()
+#at a certain value of latitiude and longitude, the price is very expensive 
+bottom_ninety_nine_perc = df.sort_values('price', ascending=False).iloc[216:]
+plt.figure(figsize=(10,6))
+sns.scatterplot(x='long', y='lat', data = bottom_ninety_nine_perc, hue = 'price', edgecolor=None, alpha=0.2, palette='RdYlGn')
+plt.show()#we basically recreated the map of King County, Seattle 
 
 
 
