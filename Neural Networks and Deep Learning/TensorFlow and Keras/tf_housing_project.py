@@ -45,4 +45,22 @@ plt.show()#we basically recreated the map of King County, Seattle
 sns.boxplot(x='waterfront', y='price', data = df)
 plt.show()
 
+#now we drop unnecesary data 
+
+df = df.drop('id', axis = 1)
+df['date'] = pd.to_datetime(df['date']) #now we can extract month or year automatically 
+df['year'] = df['date'].apply(lambda date: date.year)
+df['month'] = df['date'].apply(lambda date: date.month)
+plt.figure(figsize=(10,6))
+sns.boxplot(x='month', y='price', data = df)
+plt.show()
+#or we could just do 
+print(df.groupby('month').mean()['price']).plot()
+plt.show()
+print(df.groupby('year').mean()['price']).plot()
+plt.show()
+
+
+
+
 
