@@ -59,6 +59,8 @@ print(df.groupby('month').mean()['price']).plot()
 plt.show()
 print(df.groupby('year').mean()['price']).plot()
 plt.show()
+df=df.drop('date', axis = 1)
+df = df.drop('zipcode', axis=1)
 
 
 
