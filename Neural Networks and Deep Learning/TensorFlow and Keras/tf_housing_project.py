@@ -71,6 +71,14 @@ print(X_train.shape())
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+model = Sequential()
+model.add(Dense(19, activation='relu'))
+model.add(Dense(19, activation='relu'))
+model.add(Dense(19, activation='relu'))
+model.add(Dense(19, activation='relu'))
+model.add(Dense(1))
+model.compile(optimizer='adam', loss='mse')
+model.fit(x=X_train, y = y_train, validation_data =(X_test, y_test).values ,batch_size=128, epochs = 400)
 
 
 
