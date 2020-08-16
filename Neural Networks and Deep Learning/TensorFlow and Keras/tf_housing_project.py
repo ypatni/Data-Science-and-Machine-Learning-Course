@@ -94,6 +94,14 @@ plt.scatter(y_test, predictions)
 plt.plot(y_test, y_test, 'r')
 plt.show()
 
+#now we predict 
+single_house = df.drop('price', axis = 1).iloc[0]
+single_house = scaler.transform(single_house.values.reshape(-1,19))
+print(model.predict(single_house) #we are overshooting the value by a little which isn't too bad given the price range and number of houses 
+
+
+
+
 
 
 
