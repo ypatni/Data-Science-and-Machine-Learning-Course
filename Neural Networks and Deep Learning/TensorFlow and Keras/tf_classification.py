@@ -9,6 +9,8 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 
 mpl.rcParams['patch.force_edgecolor'] = True
 sns.set()
@@ -44,7 +46,9 @@ X_test = scaler.transform(X_test)
 # we need to stop the training before it gets out of hand 
 model = Sequential()
 model.add(Dense(30, activation='relu'))
+model.add(Dropout(0.5)) #half of the neurons will be turned off randomly 
 model.add(Dense(15, activation='relu'))
+model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer='adam', loss= 'binary_crossentropy')
 early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose = 1 ,patience=25) 
@@ -54,7 +58,12 @@ loss_df = pd.DataFrame(model.history.history)
 loss_df.plot()
 plt.show() #we get flattening out which is good 
 
+#with the Dropout, the loss graph is improved 
 
+predictions = model.predict_classes(X_test)
+
+print(classification_report(y_test, predictions)) 
+print(confusion_matrix(y_test, predictions)) 
 
 
 
