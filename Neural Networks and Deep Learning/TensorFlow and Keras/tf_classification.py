@@ -29,18 +29,35 @@ scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
+#model = Sequential()
+#model.add(Dense(30, activation='relu'))
+#model.add(Dense(15, activation='relu'))
+#model.add(Dense(1, activation='sigmoid')) #because this is a binary classification problem 
+#model.compile(optimizer='adam', loss= 'binary_crossentropy')
+#model.fit(x=X_train, y = y_train, epochs=600, validation_data =(X_test, y_test)) #this large number of epochs would probably overfit 
+#loss_df = pd.DataFrame(model.history.history)
+#loss_df.plot()
+#plt.show() 
+
+# ^ the validation and training loss both decrease, but then after a few epochs, the validation loss starts to increase, 
+# so we're training with too many epochs
+# we need to stop the training before it gets out of hand 
 model = Sequential()
 model.add(Dense(30, activation='relu'))
 model.add(Dense(15, activation='relu'))
-model.add(Dense(1, activation='sigmoid')) #because this is a binary classification problem 
+model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer='adam', loss= 'binary_crossentropy')
-model.fit(x=X_train, y = y_train, epochs=600, validation_data =(X_test, y_test)) #this large number of epochs would probably overfit 
+early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose = 1 ,patience=25) 
+#mode is basically what you're trying to do, so minimize the thing you're monitoring or maximize it 
+model.fit(x=X_train, y = y_train, epochs=600, validation_data =(X_test, y_test), callbacks=[early_stop]) #so now we know 600 was wayy too much 
 loss_df = pd.DataFrame(model.history.history)
 loss_df.plot()
-plt.show() 
-#the validation and training loss both decrease, but then after a few epochs, the validation loss starts to increase, 
-# so we're training with too many epochs
-# so we need to stop the training before it gets out of hand 
+plt.show() #we get flattening out which is good 
+
+
+
+
+
 
 
 
