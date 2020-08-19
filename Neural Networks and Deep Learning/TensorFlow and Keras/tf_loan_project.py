@@ -51,5 +51,21 @@ plt.show()
 df['loan_repaid'] = df['loan_status'].map({'Fully Paid':1,'Charged Off':0})
 print(df[['loan_repaid','loan_status']])
 df.corr()['loan_repaid'].sort_values().drop('loan_repaid').plot(kind='bar')
+plt.show()
 print(df.isnull().sum())
+#we want to see the missing numbers in terms of percentage of dataframe values 
+print(df.isnull().sum()/len(df))
+feat_info('emp_title')
+print(df['emp_title'].nunique()) #theres just way too many titles to make dummy variables 
+#might as well just remove it 
+df = df.drop('emp_title', axis = 1)
+
+
+
+
+
+
+
+
+
 
