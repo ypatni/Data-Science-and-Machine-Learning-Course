@@ -59,6 +59,19 @@ feat_info('emp_title')
 print(df['emp_title'].nunique()) #theres just way too many titles to make dummy variables 
 #might as well just remove it 
 df = df.drop('emp_title', axis = 1)
+print(sorted(df['emp_length'].dropna().unique()))
+emp_length_order = [ '< 1 year','1 year','2 years','3 years','4 years','5 years','6 years','7 years','8 years','9 years', '10+ years']
+sns.countplot(x='emp_length', data=df, order=emp_length_order, he = 'loan_status')
+plt.show()
+#we need to find percent of charge offs per category to figure  out is there is a strong relationship with emp_length
+emp_co = df[df['loan_status ']=='Charged Off'].groupby('emp_length').count()['loan_status']
+emp_fp = df[df['loan_status ']=='Fully Paid'].groupby('emp_length').count()['loan_status']
+
+emp_len = emp_co/emp_fp
+print(emp_len)
+emp_len.plot(kind='bar')
+plt.show() #the bars are pretty similar, showing no reason to keep this feature 
+df = df.drop('emp_length', axis = 1)
 
 
 
