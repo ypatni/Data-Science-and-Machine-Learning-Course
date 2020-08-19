@@ -48,3 +48,8 @@ plt.figure(figsize=(12,4))
 subgrade_order = sorted(f_and_g['sub_grade'].unique())
 sns.countplot(x='sub_grade',data=f_and_g,order = subgrade_order,hue='loan_status')
 plt.show()
+df['loan_repaid'] = df['loan_status'].map({'Fully Paid':1,'Charged Off':0})
+print(df[['loan_repaid','loan_status']])
+df.corr()['loan_repaid'].sort_values().drop('loan_repaid').plot(kind='bar')
+print(df.isnull().sum())
+
