@@ -72,6 +72,25 @@ print(emp_len)
 emp_len.plot(kind='bar')
 plt.show() #the bars are pretty similar, showing no reason to keep this feature 
 df = df.drop('emp_length', axis = 1)
+df = df.drop('title', axis = 1)
+#trying to fill more missing data 
+print(df['mort_acc'].value_counts()) #theres a lot of missing values from this account so we can't drop the rows 
+#checking for correlation 
+print(df.corr()['mort_acc'].sort())
+#total_acc has pretty good positive correlation 
+#group df by total_acc and calculate mean value for he mort_acc per total_acc entry 
+total_acc_means = df.groupby('total_acc').mean()['mor_acc']
+print(total_acc_means)
+def fill_mort_acc(total_acc, mort_acc):
+    if np.isnan(mort_acc):
+        return total_acc_means[total_acc]
+    else:
+        return mort_acc
+df['mort_acc'] = df.apply(lambda x: fill_mort_acc(x['total_acc'], x['mort_acc']), axis = 1) 
+
+df = df.dropna()
+print(df.isnull().sum())
+#No more missing data 
 
 
 
