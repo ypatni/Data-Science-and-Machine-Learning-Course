@@ -122,6 +122,20 @@ df['earliest_cr_year'] = df['earliest_cr_line'].apply(lambda date:int(date[-4:])
 df = df.drop('earliest_cr_line',axis=1)
 df.select_dtypes(['object']).columns
 
+#train test split
+df = df.drop('loan_status',axis=1) #duplicate 
+X = df.drop('loan_repaid',axis=1).values
+y = df['loan_repaid'].values
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=101)
+scaler = MinMaxScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+
+
+
+
+
 
 
 
