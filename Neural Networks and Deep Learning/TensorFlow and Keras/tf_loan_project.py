@@ -90,7 +90,41 @@ df['mort_acc'] = df.apply(lambda x: fill_mort_acc(x['total_acc'], x['mort_acc'])
 
 df = df.dropna()
 print(df.isnull().sum())
-#No more missing data 
+#No more missing numerical data 
+#Dealing with missing categorical data 
+print(df.select_dtypes(['object']).columns)
+#going through string features 
+print(df['term'].value_counts())
+df['term'] = df['term'].apply(lambda term: int(term[:3]))
+df = df.drop('grade', axis = 1)
+dummies = pd.get_dummies(df['sub_grade'], drop_first=True)
+df = pd.concat([df.drop('sub_grade', axis = 1), dummies], axis = 1)
+dummies = pd.get_dummies(df[['verification_status', 'application_type','initial_list_status','purpose' ]],drop_first=True)
+df = df.drop(['verification_status', 'application_type','initial_list_status','purpose'],axis=1)
+df = pd.concat([df,dummies],axis=1)
+#home ownership 
+df['home_ownership'].value_counts()
+df['home_ownership']=df['home_ownership'].replace(['NONE', 'ANY'], 'OTHER')
+dummies = pd.get_dummies(df['home_ownership'],drop_first=True)
+df = df.drop('home_ownership',axis=1)
+df = pd.concat([df,dummies],axis=1)
+#adresses
+df['zip_code'] = df['address'].apply(lambda address:address[-5:])
+dummies = pd.get_dummies(df['zip_code'],drop_first=True)
+df = df.drop(['zip_code','address'],axis=1)
+df = pd.concat([df,dummies],axis=1)
+#issue_data 
+
+df = df.drop('issue_d',axis=1)
+
+#earliest_cr_line
+df['earliest_cr_year'] = df['earliest_cr_line'].apply(lambda date:int(date[-4:]))
+df = df.drop('earliest_cr_line',axis=1)
+df.select_dtypes(['object']).columns
+
+
+
+
 
 
 
