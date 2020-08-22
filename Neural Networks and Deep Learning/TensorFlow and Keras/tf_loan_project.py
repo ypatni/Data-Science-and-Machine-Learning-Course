@@ -131,9 +131,28 @@ scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
+#building model 
+model = Sequential()
 
+model.add(Dense(78,  activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(39, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(19, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(units=1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer='adam')
+#fitting model 
 
+model.fit(x=X_train, 
+          y=y_train, 
+          epochs=25,
+          batch_size=256,
+          validation_data=(X_test, y_test), 
+          )
 
+model.save('full_project_model.h5')
+  
 
 
 
