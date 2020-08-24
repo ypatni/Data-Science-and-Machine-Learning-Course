@@ -154,6 +154,25 @@ model.fit(x=X_train,
 model.save('full_project_model.h5')
   
 
+#evaluating model performance 
+losses = pd.DataFrame(model.history.history)
+losses[['loss','val_loss']].plot()
+plt.show()
+predictions = model.predict_classes(X_test)
+print(classification_report(y_test,predictions))
+print(confusion_matrix(y_test,predictions))
+
+#test case 
+import random
+random.seed(101)
+random_ind = random.randint(0,len(df))
+
+new_customer = df.drop('loan_repaid',axis=1).iloc[random_ind]
+print(new_customer)
+model.predict_classes(new_customer.values.reshape(1,78))
+df.iloc[random_ind]['loan_repaid'] #the model predicted accurately 
+
+
 
 
 
